@@ -66,12 +66,100 @@ for row in buttons:
         tk.Button(
             row_frame,
             text=button,
+            width=4,
+            height=1,
+            font=("Arial", 18, "bold"),
+            bg=bg,
+            fg="white",
+            activebackground="#FAimport tkinter as tk
+
+# ------------------- Functions ------------------- #
+def click(value):
+    current = entry.get()
+    entry.delete(0, tk.END)
+    entry.insert(0, current + str(value))
+
+def clear():
+    entry.delete(0, tk.END)
+
+def calculate():
+    try:
+        result = eval(entry.get())
+        entry.delete(0, tk.END)
+        entry.insert(0, str(result))
+    except:
+        entry.delete(0, tk.END)
+        entry.insert(0, "Error")
+
+# ------------------- Window ------------------- #
+root = tk.Tk()
+root.title("Colorful GUI Calculator")
+root.geometry("350x500")
+root.configure(bg="#1E3A8A")  # Blue background
+root.resizable(False, False)
+
+# ------------------- Display ------------------- #
+entry = tk.Entry(
+    root,
+    font=("Arial", 22),
+    bd=8,
+    relief="sunken",
+    justify="right",
+    bg="white",
+    fg="black"
+)
+entry.pack(fill="both", padx=10, pady=15)
+
+# ------------------- Button Frame ------------------- #
+frame = tk.Frame(root, bg="#1E3A8A")
+frame.pack()
+
+buttons = [
+    ['7', '8', '9', '/'],
+    ['4', '5', '6', '*'],
+    ['1', '2', '3', '-'],
+    ['0', '.', '=', '+']
+]
+
+for row in buttons:
+    row_frame = tk.Frame(frame, bg="#1E3A8A")
+    row_frame.pack()
+
+    for button in row:
+        if button == "=":
+            cmd = calculate
+            bg = "#22C55E"   # Green
+        elif button in ['+', '-', '*', '/']:
+            cmd = lambda x=button: click(x)
+            bg = "#F97316"   # Orange
+        else:
+            cmd = lambda x=button: click(x)
+            bg = "#3B82F6"   # Blue
+
+        tk.Button(
+            row_frame,
+            text=button,
             width=6,
             height=2,
             font=("Arial", 18, "bold"),
             bg=bg,
             fg="white",
             activebackground="#FACC15",
+            command=cmd
+        ).pack(side="left", padx=5, pady=5)
+
+# ------------------- Clear Button ------------------- #
+tk.Button(
+    root,
+    text="CLEAR",
+    font=("Arial", 18, "bold"),
+    bg="#DC2626",      # Red
+    fg="white",
+    width=22,
+    command=clear
+).pack(pady=10)
+
+root.mainloop()CC15",
             command=cmd
         ).pack(side="left", padx=5, pady=5)
 
